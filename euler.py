@@ -30,22 +30,33 @@ def euler(t_0, y_0, dy, lower, upper, dt=1):
 
 if __name__ == '__main__':
     def f(t, y):
-        return (y-1) * (y+1) / 2
+        return 4 - (y/t)
 
-    lower = -5
-    upper = 5
-    dt = 0.2
+    def solution(t):
+        return (2 * t * t + 1) / t
+
+    lower = 1
+    upper = 10
+    dt = 0.1
 
     t_values = list()
     y_values = list()
 
-    initial_t = [0, 0, 0]
-    initial_y = [0, 1, -0.5]
+    initial_t = [1]
+    initial_y = [3]
 
     for (t, y) in zip(initial_t, initial_y):
         points = euler(t, y, f, lower, upper, dt)
         t_values.append(points[0])
         y_values.append(points[1])
+
+    solution_t = np.linspace(lower, upper, 200)
+    solution_y = solution(solution_t)
+    t_values.append(solution_t)
+    y_values.append(solution_y)
+
+    initial_t.append(1)
+    initial_y.append(3)
 
     colors = ['r', 'b', 'g', 'y', 'm']
 
